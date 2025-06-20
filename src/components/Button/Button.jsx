@@ -1,11 +1,17 @@
-import "./Button.module.scss";
+import classes from "./Button.module.scss";
 import classNames from "classnames";
 
 const Button = (props) => {
-  const { className, children, onClick } = props;
+  const { children, onClick, isDisabled, isActive } = props;
 
   return (
-    <button className={classNames(className, "button")} onClick={onClick}>
+    <button
+      className={classNames(classes.button, {
+        [classes["button-active"]]: isActive,
+      })}
+      onClick={onClick}
+      disabled={isDisabled}
+    >
       {children}
     </button>
   );
