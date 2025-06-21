@@ -2,7 +2,7 @@ import classes from "./QuestionCard.module.scss";
 import Button from "../Button/index.jsx";
 import { useNavigate } from "react-router-dom";
 
-const QuestionCard = (card) => {
+const QuestionCard = ({ card }) => {
   const { level, completed, question, answer, id } = card;
   const navigate = useNavigate();
   return (
