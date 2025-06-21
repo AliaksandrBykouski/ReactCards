@@ -1,6 +1,7 @@
 import MainLayout from "./components/MainLayout";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="forbidden" element={<div>🍻I NEED MORE BEER🍻</div>} />
           <Route path="addquestion" element={<div>🍻add question🍻</div>} />
+          <Route path="question/:id" element={<div>🍻 question page🍻</div>} />
+          <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
