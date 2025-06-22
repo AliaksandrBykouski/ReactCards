@@ -3,6 +3,7 @@ import classNames from "classnames";
 import { API_URL } from "../../constants";
 import { useState, useEffect } from "react";
 import QuestionCardList from "../../components/QuestionCardList";
+import Loader from "../../components/Loader/index.js";
 
 const HomePage = () => {
   const [questions, setQuestions] = useState([]);
@@ -24,6 +25,7 @@ const HomePage = () => {
 
   return (
     <div className={classNames(classes["home-page"])}>
+      <Loader />
       <QuestionCardList cards={questions} />
     </div>
   );
