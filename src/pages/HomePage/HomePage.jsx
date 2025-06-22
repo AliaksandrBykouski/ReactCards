@@ -18,7 +18,7 @@ const HomePage = () => {
   });
 
   useEffect(() => {
-    getQuestions("react");
+    getQuestions("react").then();
   }, []);
 
   const onSearchChangeHandler = (e) => {
