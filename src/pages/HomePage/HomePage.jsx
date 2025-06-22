@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import QuestionCardList from "../../components/QuestionCardList";
 import Loader from "../../components/Loader/index.js";
 import useFetch from "../../hooks/useFetch";
+import SearchInput from "../../components/SearchInput/index.js";
 
 const HomePage = () => {
   const [questions, setQuestions, error] = useState([]);
@@ -25,12 +26,10 @@ const HomePage = () => {
   };
   return (
     <div className={classes["home-page"]}>
-      <input
-        type="text"
-        placeholder="Search"
-        value={searchValue}
-        onChange={onSearchChangeHandler}
-      />
+      <div className={classes["home-page--controls"]}>
+        <SearchInput value={searchValue} onChange={onSearchChangeHandler} placeholder="Search" />
+      </div>
+
       {isLoading && <Loader />}
       {error && <div>{error}</div>}
       <QuestionCardList cards={questions} />
