@@ -1,8 +1,8 @@
 import classes from "./HomePage.module.scss";
 import classNames from "classnames";
-import QuestionCard from "../../components/QuestionCard";
 import { API_URL } from "../../constants";
 import { useState, useEffect } from "react";
+import QuestionCardList from "../../components/QuestionCardList";
 
 const HomePage = () => {
   const [questions, setQuestions] = useState([]);
@@ -24,9 +24,7 @@ const HomePage = () => {
 
   return (
     <div className={classNames(classes["home-page"])}>
-      {questions.map((card, index) => {
-        return <QuestionCard key={index} card={card} />;
-      })}
+      <QuestionCardList cards={questions} />
     </div>
   );
 };
