@@ -7,6 +7,7 @@ import useFetch from "../../hooks/useFetch";
 
 const HomePage = () => {
   const [questions, setQuestions, error] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
 
   const [getQuestions, isLoading] = useFetch(async (url) => {
     const response = await fetch(`${API_URL}/${url}`);
@@ -19,8 +20,17 @@ const HomePage = () => {
     getQuestions("react");
   }, []);
 
+  const onSearchChangeHandler = (e) => {
+    setSearchValue(e.target.value);
+  };
   return (
     <div className={classes["home-page"]}>
+      <input
+        type="text"
+        placeholder="Search"
+        value={searchValue}
+        onChange={onSearchChangeHandler}
+      />
       {isLoading && <Loader />}
       {error && <div>{error}</div>}
       <QuestionCardList cards={questions} />

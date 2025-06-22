@@ -1,7 +1,8 @@
 import classes from "./QuestionCardList.module.scss";
 import QuestionCard from "../QuestionCard";
+import { memo } from "react";
 
-const QuestionCardList = ({ cards }) => {
+const QuestionCardList = memo(({ cards }) => {
   return (
     <div className={classes["question-card-list"]}>
       {cards.map((card, index) => {
@@ -9,6 +10,6 @@ const QuestionCardList = ({ cards }) => {
       })}
     </div>
   );
-};
+});
 
 export default QuestionCardList;

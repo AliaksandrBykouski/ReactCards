@@ -1,4 +1,3 @@
-import React from "react";
 import classes from "./MainLayout.module.scss";
 import { Outlet } from "react-router-dom";
 import Header from "../Header/index.jsx";
@@ -9,7 +8,7 @@ const MainLayout = () => {
     <div className={classes["main-layout"]}>
       <Header />
       <div className={classes["main-wrapper"]}>
-        <main className={classes["main"]}>
+        <main className={classes.main}>
           <Outlet />
         </main>
         <Footer />
