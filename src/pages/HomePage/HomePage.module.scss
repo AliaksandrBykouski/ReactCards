@@ -10,3 +10,17 @@
     gap: 10px;
   }
 }
+
+.no-cards {
+  width: fit-content;
+  margin: 0 auto;
+  font-size: 20px;
+  font-weight: 500;
+}
+@media screen and (max-width: 576px) {
+  .home-page {
+    &--controls {
+      flex-wrap: wrap-reverse;
+    }
+  }
+}
