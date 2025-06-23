@@ -14,6 +14,7 @@ const HomePage = () => {
   const [questions, setQuestions, error] = useState({});
   const [searchValue, setSearchValue] = useState("");
   const [sortSelectValue, setSortSelectValue] = useState("");
+  const [countSelectValue, setCountSelectValue] = useState("");
 
   const controlsContainerRef = useRef();
 
@@ -60,22 +61,52 @@ const HomePage = () => {
 
   const onSortSelectChangeHandler = (e) => {
     setSortSelectValue(e.target.value);
-    setSearchParams(`?_page=1&_per_page=${DEFAULT_PER_PAGE}&${e.target.value}`);
+    setSearchParams(`?_page=1&_per_page=${countSelectValue}&${e.target.value}`);
   };
 
   const paginationHandler = (e) => {
     if (e.target.tagName === "BUTTON") {
       setSearchParams(
-        `?_page=${e.target.textContent}&_per_page=${DEFAULT_PER_PAGE}&${sortSelectValue}`,
+        `?_page=${e.target.textContent}&_per_page=${countSelectValue}&${sortSelectValue}`,
       );
       controlsContainerRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  const onCountSelectChangeHandler = (e) => {
+    setCountSelectValue(e.target.value);
+    setSearchParams(`?_page=1&_per_page=${e.target.value}&${sortSelectValue}`);
+  };
+
   return (
     <div className={classes["home-page"]}>
       <div className={classes["home-page--controls"]} ref={controlsContainerRef}>
         <SearchInput value={searchValue} onChange={onSearchChangeHandler} placeholder="Search" />
-        <Select value={sortSelectValue} onChange={onSortSelectChangeHandler} />
+        <Select
+          value={sortSelectValue}
+          onChange={onSortSelectChangeHandler}
+          defaultOption="Sort by"
+          options={[
+            { value: "_sort=level", label: "level ASC" },
+            { value: "_sort=-level", label: "level DESC" },
+            { value: "_sort=completed", label: "completed ASC" },
+            { value: "_sort=-completed", label: "completed DESC" },
+          ]}
+        />
+        <Select
+          disabled
+          value={countSelectValue}
+          onChange={onCountSelectChangeHandler}
+          defaultOption="count"
+          options={[
+            { value: "10", label: "10" },
+            { value: "20", label: "20" },
+            { value: "30", label: "30" },
+            { value: "40", label: "40" },
+            { value: "50", label: "50" },
+            { value: "100", label: "100" },
+          ]}
+        />
       </div>
 
       {isLoading && <Loader />}
@@ -86,15 +117,17 @@ const HomePage = () => {
       {cardsFilter.length === 0 ? (
         <p className={classes["no-cards"]}>No cards found for: "{searchValue}"</p>
       ) : (
-        <div className={classes["home-page--pagination"]} onClick={paginationHandler}>
-          {pagination.map((value) => {
-            return (
-              <Button key={value} isActive={value === getActivePageNumber()}>
-                {value}
-              </Button>
-            );
-          })}
-        </div>
+        pagination.length > 1 && (
+          <div className={classes["home-page--pagination"]} onClick={paginationHandler}>
+            {pagination.map((value) => {
+              return (
+                <Button key={value} isActive={value === getActivePageNumber()}>
+                  {value}
+                </Button>
+              );
+            })}
+          </div>
+        )
       )}
     </div>
   );

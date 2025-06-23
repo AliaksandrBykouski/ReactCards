@@ -1,15 +1,18 @@
 import classes from "./Select.module.scss";
 
 const Select = (props) => {
-  const { value, onChange } = props;
+  const { value, onChange, options, defaultOption, disabled } = props;
   return (
     <select className={classes.select} value={value} onChange={onChange}>
-      <option value="">sort by</option>
+      <option value="" disabled={disabled}>
+        {defaultOption}
+      </option>
       <hr />
-      <option value="_sort=level">level ASC</option>
-      <option value="_sort=-level">level DESC</option>
-      <option value="_sort=completed">completed ASC</option>
-      <option value="_sort=-completed">completed DESC</option>
+      {options.map(({ value, label }) => (
+        <option key={value} value={value}>
+          {label}
+        </option>
+      ))}
     </select>
   );
 };
