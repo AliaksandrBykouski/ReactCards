@@ -60,7 +60,6 @@ const QuestionPage = () => {
           <div className={classes["question-page-labels"]}>
             <Badge variant={levelVariant()}>Level: {card.level}</Badge>
             <Badge variant={completedVariant()}>
-              {" "}
               {card.completed ? "Completed" : "Not completed"}
             </Badge>
             {card.editDate && (
