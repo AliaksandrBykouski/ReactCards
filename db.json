@@ -34,7 +34,7 @@
         "https://react.dev/learn/render-and-commit"
       ],
       "level": 2,
-      "completed": false,
+      "completed": true,
       "editDate": "03.02.2025, 19:01"
     },
     {
@@ -102,7 +102,7 @@
         "https://reactrouter.com/en/main"
       ],
       "level": 2,
-      "completed": false
+      "completed": true
     },
     {
       "id": "10",

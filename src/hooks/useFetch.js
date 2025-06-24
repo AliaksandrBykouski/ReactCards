@@ -21,7 +21,7 @@ const useFetch = (callback) => {
     }
   };
 
-  return [fetchFn, error, isLoading];
+  return [fetchFn, isLoading, error];
 };
 
 export default useFetch;

@@ -11,7 +11,7 @@ import Button from "../../components/Button";
 const DEFAULT_PER_PAGE = 10;
 const HomePage = () => {
   const [searchParams, setSearchParams] = useState(`?_page=1&_per_page=${DEFAULT_PER_PAGE}`);
-  const [questions, setQuestions, error] = useState({});
+  const [questions, setQuestions] = useState({});
   const [searchValue, setSearchValue] = useState("");
   const [sortSelectValue, setSortSelectValue] = useState("");
   const [countSelectValue, setCountSelectValue] = useState("");
@@ -24,7 +24,7 @@ const HomePage = () => {
     return questions.next - 1;
   };
 
-  const [getQuestions, isLoading] = useFetch(async (url) => {
+  const [getQuestions, isLoading, error] = useFetch(async (url) => {
     const response = await fetch(`${API_URL}/${url}`);
     const questions = await response.json();
     setQuestions(questions);
