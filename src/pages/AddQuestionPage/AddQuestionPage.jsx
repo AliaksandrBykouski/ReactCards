@@ -1,15 +1,48 @@
 import classes from "./AddQuestionPage.module.scss";
 import Button from "../../components/Button";
+import { useActionState } from "react";
+import { toast } from "react-toastify";
+import delayFn from "../../helpers/delayFn.js";
+import { API_URL } from "../../constants/index.js";
+
+const createCardQuestion = async (_prevState, formData) => {
+  try {
+    await delayFn();
+    const resources = formData.get("resources");
+    const isClearForm = formData.get("clearForm");
+
+    const response = await fetch(`${API_URL}/react`, {
+      method: "POST",
+      body: JSON.stringify({
+        question: formData.get("question"),
+        answer: formData.get("answer"),
+        description: formData.get("description"),
+        resources: resources.length ? resources.split(",") : [],
+        level: Number(formData.get("level")),
+        completed: false,
+        editDate: undefined,
+      }),
+    });
+    const questions = await response.json();
+    toast.success("Question added successfully");
+    return isClearForm ? {} : questions;
+  } catch (error) {
+    toast.error(error.message);
+  }
+};
 
 const AddQuestionPage = () => {
+  const [formState, formAction, isPending] = useActionState(createCardQuestion, {
+    clearForm: true,
+  });
   return (
     <div className={classes["add-question-page"]}>
       <h1 className={classes["add-question-page--title"]}>Add new question</h1>
-      <form className={classes["add-question-page--form"]}>
+      <form className={classes["add-question-page--form"]} action={formAction}>
         <div className={classes["add-question-page--form-field"]}>
           <label htmlFor="questionField">Question:</label>
           <textarea
-            defaultValue=""
+            defaultValue={formState.question}
             name="question"
             id="questionField"
             cols="30"
@@ -21,7 +54,7 @@ const AddQuestionPage = () => {
         <div className={classes["add-question-page--form-field"]}>
           <label htmlFor="answerField">Short Answer:</label>
           <textarea
-            defaultValue=""
+            defaultValue={formState.answer}
             name="answer"
             id="answerField"
             cols="30"
@@ -33,7 +66,7 @@ const AddQuestionPage = () => {
         <div className={classes["add-question-page--form-field"]}>
           <label htmlFor="descriptionField">Full description:</label>
           <textarea
-            defaultValue=""
+            defaultValue={formState.description}
             name="description"
             id="descriptionField"
             cols="30"
@@ -45,7 +78,7 @@ const AddQuestionPage = () => {
         <div className={classes["add-question-page--form-field"]}>
           <label htmlFor="resourcesField">Resources:</label>
           <textarea
-            defaultValue=""
+            defaultValue={formState.resources}
             name="resources"
             id="resourcesField"
             cols="30"
@@ -56,7 +89,7 @@ const AddQuestionPage = () => {
         </div>
         <div className={classes["add-question-page--form-field"]}>
           <label htmlFor="levelField">Level:</label>
-          <select name="level" id="levelField" required>
+          <select name="level" id="levelField" defaultValue={formState.level}>
             <option value="" disabled>
               Please select level
             </option>
@@ -73,11 +106,13 @@ const AddQuestionPage = () => {
             name="clearForm"
             id="clearFormField"
             required
-            defaultValue={true}
+            defaultChecked={formState.clearForm}
           />
           <span>Clear form after submitting?</span>
         </label>
-        <Button type="submit">Add question</Button>
+        <Button type="submit" isDisabled={isPending}>
+          Add question
+        </Button>
       </form>
     </div>
   );
