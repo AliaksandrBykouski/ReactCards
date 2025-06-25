@@ -50,14 +50,23 @@ const EditQuestion = ({ initialState = {} }) => {
     <div className={classes["edit-question-page"]}>
       {isPending && <Loader />}
       <h1 className={classes["edit-question-page--title"]}>Edit question</h1>
+      <div className={classes["edit-question-page--form-wrapper"]}>
+        <button
+          className={classes["edit-question-page--close"]}
+          disabled={isPending}
+          onClick={() => {}}
+        >
+          X
+        </button>
 
-      <QuestionForm
-        formState={formState}
-        formAction={formAction}
-        isPending={isPending}
-        submitBtnText="Edit question"
-        initialState={initialState}
-      />
+        <QuestionForm
+          formState={formState}
+          formAction={formAction}
+          isPending={isPending}
+          submitBtnText="Edit question"
+          initialState={initialState}
+        />
+      </div>
     </div>
   );
 };
