@@ -4,6 +4,7 @@ import { useActionState } from "react";
 import { toast } from "react-toastify";
 import delayFn from "../../helpers/delayFn.js";
 import { API_URL } from "../../constants/index.js";
+import Loader from "../../components/Loader/index.js";
 
 const createCardQuestion = async (_prevState, formData) => {
   try {
@@ -23,11 +24,18 @@ const createCardQuestion = async (_prevState, formData) => {
         editDate: undefined,
       }),
     });
-    const questions = await response.json();
+
+    if (!response.ok) {
+      throw new Error(response.statusText);
+    }
+
+    const questions = response.json();
     toast.success("Question added successfully");
+
     return isClearForm ? {} : questions;
   } catch (error) {
     toast.error(error.message);
+    return {};
   }
 };
 
@@ -37,6 +45,7 @@ const AddQuestionPage = () => {
   });
   return (
     <div className={classes["add-question-page"]}>
+      {isPending && <Loader />}
       <h1 className={classes["add-question-page--title"]}>Add new question</h1>
       <form className={classes["add-question-page--form"]} action={formAction}>
         <div className={classes["add-question-page--form-field"]}>
@@ -82,8 +91,7 @@ const AddQuestionPage = () => {
             name="resources"
             id="resourcesField"
             cols="30"
-            rows="2"
-            required
+            rows="3"
             placeholder="Please enter  resources separated by commas"
           ></textarea>
         </div>
