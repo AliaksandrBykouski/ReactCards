@@ -1,3 +1,1 @@
-import AddQuestionPage from "./AddQuestionPage";
-
-export default AddQuestionPage;
+export { default as AddQuestionPageLazy } from "./AddQuestionPage.lazy";

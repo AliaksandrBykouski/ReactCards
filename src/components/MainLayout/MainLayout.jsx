@@ -1,8 +1,10 @@
 import classes from "./MainLayout.module.scss";
 import { Outlet } from "react-router-dom";
-import Header from "../Header/index.jsx";
-import Footer from "../Footer/index.jsx";
+import Header from "../Header";
+import Footer from "../Footer";
 import { ToastContainer } from "react-toastify";
+import { Suspense } from "react";
+import Loader from "../Loader";
 
 const MainLayout = () => {
   return (
@@ -11,7 +13,9 @@ const MainLayout = () => {
         <Header />
         <div className={classes["main-wrapper"]}>
           <main className={classes.main}>
-            <Outlet />
+            <Suspense fallback={<Loader />}>
+              <Outlet />
+            </Suspense>
           </main>
           <Footer />
         </div>

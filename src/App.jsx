@@ -3,7 +3,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import QuestionPage from "./pages/QuestionPage";
-import AddQuestionPage from "./pages/AddQuestionPage";
+import { AddQuestionPageLazy } from "./pages/AddQuestionPage";
+import EditQuestionPage from "./pages/EditQuestionPage";
 
 function App() {
   return (
@@ -12,8 +13,9 @@ function App() {
         <Route element={<MainLayout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="forbidden" element={<div>🍻I NEED MORE BEER🍻</div>} />
-          <Route path="addquestion" element={<AddQuestionPage />} />
+          <Route path="addquestion" element={<AddQuestionPageLazy />} />
           <Route path="question/:id" element={<QuestionPage />} />
+          <Route path="/editquestion/:id" element={<EditQuestionPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
