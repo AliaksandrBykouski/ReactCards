@@ -1,3 +1,1 @@
-import EditQuestionPage from "./EditQuestionPage";
-
-export default EditQuestionPage;
+export { default as EditQuestionPageLazy } from "./EditQuestionPage.lazy";

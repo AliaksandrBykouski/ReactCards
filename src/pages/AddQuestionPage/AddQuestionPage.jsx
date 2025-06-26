@@ -1,5 +1,4 @@
 import classes from "./AddQuestionPage.module.scss";
-import Button from "../../components/Button";
 import { useActionState } from "react";
 import { toast } from "react-toastify";
 import delayFn from "../../helpers/delayFn.js";

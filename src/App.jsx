@@ -4,7 +4,7 @@ import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import QuestionPage from "./pages/QuestionPage";
 import { AddQuestionPageLazy } from "./pages/AddQuestionPage";
-import EditQuestionPage from "./pages/EditQuestionPage";
+import { EditQuestionPageLazy } from "./pages/EditQuestionPage";
 import { AuthProvider } from "./auth/AuthProvider";
 import useAuth from "./hooks/useAuth.js";
 import ForbiddenPage from "./pages/ForbiddenPage/index.js";
@@ -31,7 +31,7 @@ function App() {
 
             <Route element={<PrivateRoute />}>
               <Route path="/addquestion" element={<AddQuestionPageLazy />} />
-              <Route path="/editquestion/:id" element={<EditQuestionPage />} />
+              <Route path="/editquestion/:id" element={<EditQuestionPageLazy />} />
             </Route>
 
             <Route path="question/:id" element={<QuestionPage />} />
