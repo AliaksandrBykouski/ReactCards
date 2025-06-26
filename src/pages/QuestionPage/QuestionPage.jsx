@@ -7,6 +7,7 @@ import useFetch from "../../hooks/useFetch.js";
 import { API_URL } from "../../constants";
 import Loader from "../../components/Loader";
 import { SmallLoader } from "../../components/Loader";
+import useAuth from "../../hooks/useAuth.js";
 
 const QuestionPage = () => {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ const QuestionPage = () => {
 
   const [card, setCard] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
+  const { isAuth } = useAuth();
 
   const levelVariant = () =>
     card.level === 1 ? "primary" : card.level === 2 ? "warning" : "alert";
@@ -102,13 +104,15 @@ const QuestionPage = () => {
             {isCardUpdating && <SmallLoader />}
           </label>
 
-          <Button
-            className={classes["question-page-btn"]}
-            onClick={() => navigate(`/editquestion/${card.id}`)}
-            isDisabled={isCardUpdating}
-          >
-            Edit question
-          </Button>
+          {isAuth && (
+            <Button
+              className={classes["question-page-btn"]}
+              onClick={() => navigate(`/editquestion/${card.id}`)}
+              isDisabled={isCardUpdating}
+            >
+              Edit question
+            </Button>
+          )}
           <Button
             className={classes["question-page-btn"]}
             onClick={() => navigate("/")}
